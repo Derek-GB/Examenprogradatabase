@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -18,13 +19,15 @@ import java.util.List;
  */
 public class ParticipanteDAO extends Dao<ParticipanteDTO> {
 
+    private static HashSet<String> cache;
+    
      public ParticipanteDAO(Connection connection) {
         super(connection);
     }
     
     @Override
     public boolean create(ParticipanteDTO dto) throws SQLException {
-       if (dto == null ) {
+       if (dto == null || !validatePk(dto)) {
             return false;
         }
         String query = "Call ParticipanteCreate(?,?,?,?)";
@@ -94,9 +97,26 @@ if (dto == null) {
         String query = "Call ParticipanteDelete(?)";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, String.valueOf(id));
-            return stmt.executeUpdate() > 0;
-
+            if (stmt.executeUpdate() > 0){
+                cache.remove(String.valueOf(id));
+                return true;
+            }
+            return false;
         }
+    }
+    
+    private boolean validatePk(Object id) throws SQLException{
+        if (id == null || String.valueOf(id).trim().isEmpty()) {
+            return false;
+        }
+        if (cache.contains(String.valueOf(id))){
+            return true;
+        }
+        if(read(id) == null){
+            return false;
+        }
+        cache.add(String.valueOf(id));
+        return true;
     }
     
 }

@@ -8,6 +8,7 @@ import Modelo.Database.Database;
 import Modelo.Inscripcion.Inscripcion;
 import Modelo.Inscripcion.InscripcionDAO;
 import Modelo.Inscripcion.InscripcionDTO;
+import Modelo.Inscripcion.InscripcionMapper;
 import Modelo.Participantes.ParticipanteDAO;
 import Modelo.Taller.TallerDAO;
 import java.sql.SQLException;
@@ -26,7 +27,7 @@ import Vista.vista;
 public class InscripcionControlador {
     private InscripcionDAO dao;
     private final vista view;
-    private final InscricionMapper mapper;
+    private final InscripcionMapper mapper;
     
     public InscripcionControlador(vista view) {
         this.view = view;

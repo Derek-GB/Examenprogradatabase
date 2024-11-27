@@ -7,6 +7,8 @@ package Modelo.Mapper;
 /**
  *
  * @author DYLAN
+ * @param <Ent>
+ * @param <DTO>
  */
 public interface Mapper <Ent,DTO>{
     public DTO toDTO(Ent ent);

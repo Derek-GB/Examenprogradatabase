@@ -8,6 +8,7 @@ import Modelo.Dao.Dao;
 import Modelo.Database.Database;
 import Modelo.Participantes.ParticipanteDAO;
 import Modelo.Taller.TallerDAO;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,6 +20,10 @@ import java.util.List;
  * @author Student
  */
 public class InscripcionDAO extends Dao<InscripcionDTO> {
+
+    public InscripcionDAO(Connection connection) {
+        super(connection);
+    }
 
     @Override
     public boolean create(InscripcionDTO dto) throws SQLException {

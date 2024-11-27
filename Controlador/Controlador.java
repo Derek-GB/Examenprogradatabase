@@ -15,7 +15,6 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
-import javax.swing.text.View;
 import Vista.vista;
 
 /**
@@ -27,9 +26,14 @@ public class Controlador {
     private InscripcionDAO dao;
     private final vista view;
     private final InscripcionMapper mapper;
+    private int capacidad;
 
-    public Controlador(vista view) {
+    public Controlador(vista view, int capacidad) {
         this.view = view;
+        if (capacidad <= 0){
+            view.showError("Capacidad insuficiente");
+        }
+        this.capacidad = capacidad;
         mapper = new InscripcionMapper();
         try {
             dao = new InscripcionDAO(Database.getConnection());
@@ -48,6 +52,11 @@ public class Controlador {
                 view.showError("La cedula ingresada ya se encuentra registrada");
                 return;
             }
+            if (capacidad <= 0){
+                view.showError("Ya no quedan cupos disponibles");
+                return;
+            }
+            capacidad--;
             dao.create(mapper.toDTO(inscripcion));
             view.showMessage("Datos guardados correctamente");
         } catch (SQLException ex) {
@@ -121,7 +130,7 @@ public class Controlador {
 
     public boolean validatePK(int id) {
         try {
-            return dao.read(id) == null;
+            return dao.read(id) != null;
         } catch (SQLException ex) {
             return false;
         }

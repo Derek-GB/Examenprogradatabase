@@ -76,7 +76,7 @@ public class ParticipanteDAO extends Dao<ParticipanteDTO> {
 
     @Override
     public boolean update(ParticipanteDTO dto) throws SQLException {
-if (dto == null) {
+if (dto == null || !validatePk(dto)) {
             return false;
         }
         String query = "Call ParticipanteUpdate(?,?,?)";

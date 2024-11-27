@@ -4,11 +4,13 @@
  */
 package Vista;
 
+import java.util.List;
+
 /**
  *
  * @author Student
  */
-public class FrmPrincipal extends javax.swing.JFrame {
+public class FrmPrincipal extends javax.swing.JFrame implements vista {
 
     /**
      * Creates new form FrmPrincipal
@@ -88,7 +90,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        new FrmInscripcion().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -131,4 +133,29 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void show(Object ent) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void showAll(List ents) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void showMessage(String msg) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void showError(String err) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public boolean validateRequired() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

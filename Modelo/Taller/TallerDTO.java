@@ -5,7 +5,7 @@
 package Modelo.Taller;
 
 
-import java.util.Date;
+import java.sql.Date;
 
 /**
  *

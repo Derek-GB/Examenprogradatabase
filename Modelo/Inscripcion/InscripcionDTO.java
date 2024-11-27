@@ -5,6 +5,7 @@
 package Modelo.Inscripcion;
 
 import java.time.LocalDate;
+import java.sql.Date;
 
 /**
  *
@@ -14,7 +15,7 @@ public class InscripcionDTO {
     private final int id;
     private final int taller;
     private final String participante;
-    private final LocalDate fecha;
+    private final Date fecha;
     private final boolean asistencia;
 
     public int getId() {
@@ -29,7 +30,7 @@ public class InscripcionDTO {
         return participante;
     }
 
-    public LocalDate getFecha() {
+    public Date getFecha() {
         return fecha;
     }
 
@@ -37,7 +38,7 @@ public class InscripcionDTO {
         return asistencia;
     }
 
-    public InscripcionDTO(int id, int taller, String participante, LocalDate fecha, boolean asistencia) {
+    public InscripcionDTO(int id, int taller, String participante, Date fecha, boolean asistencia) {
         this.id = id;
         this.taller = taller;
         this.participante = participante;

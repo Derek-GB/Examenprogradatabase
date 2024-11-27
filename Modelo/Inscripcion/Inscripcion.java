@@ -4,6 +4,8 @@
  */
 package Modelo.Inscripcion;
 
+import Modelo.Participantes.Participante;
+import Modelo.Taller.Taller;
 import java.time.LocalDate;
 
 /**

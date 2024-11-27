@@ -25,6 +25,9 @@ public class TallerDAO extends Dao<TallerDTO>{
 
     @Override
     public boolean create(TallerDTO dto) throws SQLException {
+        if (dto == null) {
+            return false;
+        }
         String query = "Call TallerCreate(?,?,?,?)";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, dto.getNombre());
@@ -40,7 +43,7 @@ public class TallerDAO extends Dao<TallerDTO>{
         if (id == null || String.valueOf(id).trim().isEmpty()) {
             return null;
         }
-        String query = "Call readRead(?)";
+        String query = "Call TallerRead(?)";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, String.valueOf(id));
             try (ResultSet rs = stmt.executeQuery()) {
@@ -84,9 +87,10 @@ public class TallerDAO extends Dao<TallerDTO>{
         }
         String query = "Call TallerUpdate(?,?,?)";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setDate(1, (Date) dto.getFecha());
-            stmt.setString(2, dto.getLugar());
-            stmt.setInt(3, dto.getCapacidad());
+            stmt.setInt(1, dto.getId());
+            stmt.setDate(2, (Date) dto.getFecha());
+            stmt.setString(3, dto.getLugar());
+            stmt.setInt(4, dto.getCapacidad());
             return stmt.executeUpdate() > 0;
 
         }

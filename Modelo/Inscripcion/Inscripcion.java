@@ -51,6 +51,14 @@ public class Inscripcion {
         this.fecha = fecha;
         this.asistencia = asistencia;
     }
+    
+    public Inscripcion(int id, Taller taller, Participante participante, LocalDate fecha) {
+        this.id = id;
+        this.taller = taller;
+        this.participante = participante;
+        this.fecha = fecha;
+        this.asistencia = false;
+    }
 
     @Override
     public String toString() {

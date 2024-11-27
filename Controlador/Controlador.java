@@ -18,49 +18,48 @@ import java.util.stream.Collectors;
 import javax.swing.text.View;
 import Vista.vista;
 
-
-
 /**
  *
  * @author DYLAN
  */
-public class InscripcionControlador {
+public class Controlador {
+
     private InscripcionDAO dao;
     private final vista view;
     private final InscripcionMapper mapper;
-    
-    public InscripcionControlador(vista view) {
+
+    public Controlador(vista view) {
         this.view = view;
-        mapper=new InscripcionMapper();
+        mapper = new InscripcionMapper();
         try {
-            dao=new InscripcionDAO(Database.getConnection());
+            dao = new InscripcionDAO(Database.getConnection());
         } catch (SQLException ex) {
             view.showError("Error al conectar con la Base de Datos");
         }
     }
-    
-    public void create(Inscripcion inscripcion){
-        if(inscripcion==null || !validateRequired(inscripcion)) {
+
+    public void create(Inscripcion inscripcion) {
+        if (inscripcion == null || !validateRequired(inscripcion)) {
             view.showError("Faltan datos requeridos");
             return;
         }
         try {
-            if (!validatePK(inscripcion.getId())){
+            if (!validatePK(inscripcion.getId())) {
                 view.showError("La cedula ingresada ya se encuentra registrada");
                 return;
             }
             dao.create(mapper.toDTO(inscripcion));
             view.showMessage("Datos guardados correctamente");
         } catch (SQLException ex) {
-            view.showError("Ocurrio un error al guardar los datos: "+ ex.getMessage());
+            view.showError("Ocurrio un error al guardar los datos: " + ex.getMessage());
         }
     }
-    
-    public void read(){
-        
+
+    public void read() {
+
     }
-    
-    public void readAll(){
+
+    public void readAll() {
         try {
             List<InscripcionDTO> dtoList = dao.readAll();
             List<Inscripcion> inscripcionList = dtoList.stream()
@@ -69,44 +68,42 @@ public class InscripcionControlador {
                     .collect(Collectors.toList());
             view.showAll(inscripcionList);
         } catch (SQLException ex) {
-            view.showError("Error al cargar los datos: "+ ex.getMessage());
+            view.showError("Error al cargar los datos: " + ex.getMessage());
         }
     }
-    
-    public void update(Inscripcion inscripcion){
-        if(inscripcion==null || !validateRequired(inscripcion)) {
+
+    public void update(Inscripcion inscripcion) {
+        if (inscripcion == null || !validateRequired(inscripcion)) {
             view.showError("Faltan datos requeridos");
             return;
         }
         try {
-            if (validatePK(inscripcion.getId())){
+            if (validatePK(inscripcion.getId())) {
                 view.showError("La cedula ingresada no se encuentra registrada");
                 return;
             }
             dao.update(mapper.toDTO(inscripcion));
         } catch (SQLException ex) {
-            view.showError("Ocurrio un error al actualizar los datos: "+ ex.getMessage());
+            view.showError("Ocurrio un error al actualizar los datos: " + ex.getMessage());
         }
     }
-    
-    public void delete(Inscripcion inscripcion){
-        if(inscripcion==null || !validateRequired(inscripcion)) {
+
+    public void delete(Inscripcion inscripcion) {
+        if (inscripcion == null || !validateRequired(inscripcion)) {
             view.showError("No hay ningun cliente cargado actualmente");
             return;
         }
         try {
-            if (validatePK(inscripcion.getId())){
+            if (validatePK(inscripcion.getId())) {
                 view.showError("La cedula ingresada no ya se encuentra registrada");
                 return;
             }
             dao.delete(inscripcion.getId());
         } catch (SQLException ex) {
-            view.showError("Ocurrio un error al eliminar los datos: "+ ex.getMessage());
+            view.showError("Ocurrio un error al eliminar los datos: " + ex.getMessage());
         }
     }
-    
 
-    
     public static boolean validateFkTaller(Object id) throws SQLException {
         return new TallerDAO(Database.getConnection()).read(id) != null;
     }
@@ -114,16 +111,19 @@ public class InscripcionControlador {
     public static boolean validateFkParticipante(Object id) throws SQLException {
         return new ParticipanteDAO(Database.getConnection()).read(id) != null;
     }
-    
-    
-    
-    
-    
+
     public boolean validateRequired(Inscripcion inscripcion) {
-        return false;
+        return (inscripcion.getId() > 0)
+                && inscripcion.getTaller() != null
+                && inscripcion.getParticipante() != null
+                && inscripcion.getFecha() != null;
     }
 
-    public boolean validatePK(String id) {
-        return false;
+    public boolean validatePK(int id) {
+        try {
+            return dao.read(id) == null;
+        } catch (SQLException ex) {
+            return false;
+        }
     }
 }

@@ -8,7 +8,7 @@ package Modelo.Participantes;
  *
  * @author Student
  */
-public class ParticipantesDTO {
+public class ParticipanteDTO {
      private final  String cedula;
     private  final String nombre;
     private  final String telefono;
@@ -30,7 +30,7 @@ public class ParticipantesDTO {
         return correo;
     }
 
-    public ParticipantesDTO(String cedula, String nombre, String telefono, String correo) {
+    public ParticipanteDTO(String cedula, String nombre, String telefono, String correo) {
         this.cedula = cedula;
         this.nombre = nombre;
         this.telefono = telefono;

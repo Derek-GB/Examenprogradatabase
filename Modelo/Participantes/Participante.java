@@ -8,7 +8,7 @@ package Modelo.Participantes;
  *
  * @author Student
  */
-public class Participantes {
+public class Participante {
     private String cedula;
     private String nombre;
     private String telefono;
@@ -38,14 +38,14 @@ public class Participantes {
         this.correo = correo;
     }
 
-    public Participantes(String cedula, String nombre, String telefono, String correo) {
+    public Participante(String cedula, String nombre, String telefono, String correo) {
         this.cedula = cedula;
         this.nombre = nombre;
         this.telefono = telefono;
         this.correo = correo;
     }
 
-    public Participantes() {
+    public Participante() {
         this("","","","");
     }
 

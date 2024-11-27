@@ -12,8 +12,8 @@ import java.time.LocalDate;
  */
 public class InscripcionDTO {
     private final int id;
-    private final Taller taller;
-    private final Participante participante;
+    private final int taller;
+    private final String participante;
     private final LocalDate fecha;
     private final boolean asistencia;
 
@@ -21,11 +21,11 @@ public class InscripcionDTO {
         return id;
     }
 
-    public Taller getTaller() {
+    public int getTaller() {
         return taller;
     }
 
-    public Participante getParticipante() {
+    public String getParticipante() {
         return participante;
     }
 
@@ -37,7 +37,7 @@ public class InscripcionDTO {
         return asistencia;
     }
 
-    public InscripcionDTO(int id, Taller taller, Participante participante, LocalDate fecha, boolean asistencia) {
+    public InscripcionDTO(int id, int taller, String participante, LocalDate fecha, boolean asistencia) {
         this.id = id;
         this.taller = taller;
         this.participante = participante;

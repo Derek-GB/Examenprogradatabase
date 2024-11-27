@@ -24,6 +24,17 @@ public class ParticipanteDAO extends Dao<ParticipanteDTO> {
     
     @Override
     public boolean create(ParticipanteDTO dto) throws SQLException {
+       if (dto == null ) {
+            return false;
+        }
+        String query = "Call ParticipanteCreate(?,?,?,?)";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, dto.getCedula());
+            stmt.setString(2, dto.getNombre());
+            stmt.setString(3, dto.getTelefono());
+            stmt.setString(4, dto.getCorreo());
+            return stmt.executeUpdate() > 0;
+        }  
         
     }
 
